@@ -1,49 +1,28 @@
-import http from "http";
-import { promises as fs } from "fs";
+import express from "express";
+import path from "path";
+
+const app = express();
 
 const PORT = process.env.PORT || 3000;
 const HOST = process.env.HOST || "localhost";
 
-const ROOT = process.env.ROOT || "./www";
+const PAGE_DIR = process.env.PAGEROOT || "www";
 
-const servePage = async (req, res) => {
-     
-     const address = req.client.localAddress;
-     
-     if(req.method !== "GET") {
-          res.statusCode = 405;
-          res.setHeader('Content-Type', 'text/plain');
+app.get("*", (req, res) => {
+     const url = (req.path === '/') ? "/index" : req.path;
+     const absFilePath = path.join(path.resolve(PAGE_DIR), `${url}.html`);
 
-          res.end(http.STATUS_CODES[res.statusCode]);
-          return;
-     }
+     res.sendFile(absFilePath, (err) => {
+          if(err) {
+               res.status(404);
+               const absFilePath404 = path.resolve(PAGE_DIR, "404.html");
+               res.sendFile(absFilePath404, (innerErr) => {
+                    if(innerErr) {
+                         res.send("<h1>404 - Not Found</h1>")
+                    }
+               });
+          }
+     });
+});
 
-     let url = req.url;
-     if(url === "/") {
-          url = "/index";
-     }
-
-     try {
-          const filePath = `${ROOT}${url}.html`;
-          const data = await fs.readFile(filePath, { encoding: 'utf8' });
-          res.statusCode = 200;
-          res.setHeader('Content-Type', 'text/html');
-
-          res.end(data);
-     } catch (err) {
-          res.statusCode = 404;
-          res.setHeader('Content-Type', 'text/html');
-
-          try {
-               const filePath404 = `${ROOT}/404.html`;
-               const notFoundPage = await fs.readFile(filePath404, { encoding: 'utf8' });
-               res.end(notFoundPage);
-           } catch (innerErr) {
-               res.end('<h1>404 - Not Found</h1>'); // Fallback in case the 404.html file is missing
-           }
-     }
-}
-
-const server = http.createServer(servePage);
-
-server.listen(PORT, HOST, ()=> console.log(`Server running at http://${HOST}:${PORT}/`));
+app.listen(PORT, () => console.log(`My first Express app - listening on port ${PORT}!`));
