@@ -20,11 +20,12 @@ const servePage = async (req, res) => {
 
      let url = req.url;
      if(url === "/") {
-          url = "/index.html";
+          url = "/index";
      }
 
      try {
-          const data = await fs.readFile(`${ROOT}${url}`, { encoding: 'utf8' });
+          const filePath = `${ROOT}${url}.html`;
+          const data = await fs.readFile(filePath, { encoding: 'utf8' });
           res.statusCode = 200;
           res.setHeader('Content-Type', 'text/html');
 
@@ -34,7 +35,8 @@ const servePage = async (req, res) => {
           res.setHeader('Content-Type', 'text/html');
 
           try {
-               const notFoundPage = await fs.readFile(`${ROOT}/404.html`, { encoding: 'utf8' });
+               const filePath404 = `${ROOT}/404.html`;
+               const notFoundPage = await fs.readFile(filePath404, { encoding: 'utf8' });
                res.end(notFoundPage);
            } catch (innerErr) {
                res.end('<h1>404 - Not Found</h1>'); // Fallback in case the 404.html file is missing
