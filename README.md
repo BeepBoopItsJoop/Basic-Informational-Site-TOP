@@ -3,5 +3,7 @@ This is a basic HTTP server written with node.js
 * It receives a GET request from a client
 * asynchronously opens and sends an html page
 * If file isn't found it sends a 404 page instead
+# Express
+The second branch includes an express rewrite of this server
 # Source
 [The Odin Project](https://www.theodinproject.com/lessons/nodejs-basic-informational-site)
