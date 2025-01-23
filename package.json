@@ -6,7 +6,7 @@
   "scripts": {
     "start": "node server.js",
     "watch": "node --watch server.js",
-    "debug": "node --watch --inspect server.js",
+    "debug": "node --watch --inspect server.js"
   },
   "repository": {
     "type": "git",
@@ -18,5 +18,9 @@
   "bugs": {
     "url": "https://github.com/BeepBoopItsJoop/Basic-Informational-Site-TOP/issues"
   },
-  "homepage": "https://github.com/BeepBoopItsJoop/Basic-Informational-Site-TOP#readme"
+  "homepage": "https://github.com/BeepBoopItsJoop/Basic-Informational-Site-TOP#readme",
+  "type": "module",
+  "dependencies": {
+    "express": "^4.21.2"
+  }
 }
