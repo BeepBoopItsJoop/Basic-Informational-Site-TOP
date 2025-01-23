@@ -1,0 +1,22 @@
+{
+  "name": "top-basic-informational-site",
+  "version": "1.0.0",
+  "description": "This is a basic HTTP server written with node.js\r * It receives a GET request from a client\r * asynchronously opens and sends an html page\r * If file isn't found it sends a 404 page instead\r # Source\r [The Odin Project](https://www.theodinproject.com/lessons/nodejs-basic-informational-site)",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "watch": "node --watch server.js",
+    "debug": "node --watch --inspect server.js",
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/BeepBoopItsJoop/Basic-Informational-Site-TOP.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/BeepBoopItsJoop/Basic-Informational-Site-TOP/issues"
+  },
+  "homepage": "https://github.com/BeepBoopItsJoop/Basic-Informational-Site-TOP#readme"
+}
